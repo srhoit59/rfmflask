@@ -88,7 +88,7 @@ def upload_file():
                 data.close()
                 filenames.append(filename)
                 flash('File(s) successfully uploaded to Blob','filename')
-        return render_template('upload.html',filenames=filenames)
+        return redirect('/upload')
 
 @app.route('/download')
 def download_file():

@@ -1,4 +1,4 @@
-entrypoint: "gunicorn -b :$PORT application:app"
+entrypoint: "gunicorn -b :$PORT application:app --timeout 600"
 
 env: flex
 

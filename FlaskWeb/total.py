@@ -96,7 +96,7 @@ for param in pdq:
 
             results = mod.fit()
             
-            print('ARIMA{}x{}12 - AIC:{}'.format(param, param_seasonal, results.aic))
+            #print('ARIMA{}x{}12 - AIC:{}'.format(param, param_seasonal, results.aic))
             grab.append(results.aic)
             arm.append([results.aic,param, param_seasonal])
         except:
@@ -112,9 +112,10 @@ mod = sm.tsa.statespace.SARIMAX(A,trend='t',exog=ser['Total Sum of Revenue'].val
 results = mod.fit()
 
 print(results.summary())
+"""
 results.plot_diagnostics(figsize=(16, 8))
 plt.show()
-
+"""
 pred = results.get_prediction(start=1, dynamic=False)
 pred_ci = pred.conf_int()
 
@@ -321,6 +322,7 @@ for i in range(len(lst)):
 ASGneg = pd.concat([df1,df2,df3,df4,df5,df10,df15,df20])
 
 ASGINC=pd.concat([ASGpos,ASGneg])
+ASGINC=ASGINC.rename(columns={'Unnamed: 0':'Date'})
 
 
 blobservice = BlockBlobService(account_name='flaskstorage', account_key='4+JwE+i1NvLF/oJuqmEVb0nNEiX0+9Tnq8M6U28cA0hsjP4qlpAfaSORdOg0Kphw2CWf/Zp4uPZG+M/sfdZytQ==') 
@@ -361,6 +363,7 @@ a=a.reset_index()
 newdf =pd.concat([b,a],axis=1)
 newdf.drop('Unnamed: 0',axis=1,inplace=True)
 newdf=newdf.rename(columns={'yhat':'Predicted','ds':'Date'})
+
 ##############3
 
 blobservice = BlockBlobService(account_name='flaskstorage', account_key='4+JwE+i1NvLF/oJuqmEVb0nNEiX0+9Tnq8M6U28cA0hsjP4qlpAfaSORdOg0Kphw2CWf/Zp4uPZG+M/sfdZytQ==') 
