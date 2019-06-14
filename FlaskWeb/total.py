@@ -346,7 +346,7 @@ revdf=revdf.rename(columns={"Attrition":'y'})
 my_model = Prophet(interval_width=0.95,changepoint_prior_scale=5)
 my_model.fit(revdf[['ds','y']])
 future_dates = my_model.make_future_dataframe(periods=6, freq='MS')
-print("dates",future_dates)
+#print("dates",future_dates)
 forecast = my_model.predict(future_dates)
 forecast[['ds', 'yhat','yhat_lower', 'yhat_upper']]
 from sklearn.metrics import mean_squared_error
@@ -359,7 +359,7 @@ b= pd.DataFrame(forecast[['ds','yhat']])
 a=pd.DataFrame(ser['Attrition'])
 a=a.reset_index()
 newdf =pd.concat([b,a],axis=1)
-newdf.drop('index',axis=1,inplace=True)
+newdf.drop('Unnamed: 0',axis=1,inplace=True)
 newdf=newdf.rename(columns={'yhat':'Predicted','ds':'Date'})
 ##############3
 
